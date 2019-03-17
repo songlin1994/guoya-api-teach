@@ -1,0 +1,204 @@
+server:
+  port: 8083
+# 自定义属性配置 ,/interview/**,/user/**
+my-props:
+  uploadAudioPath: /root/software/apache-tomcat-7.0.86/webapps/guoya-data/interview/audio/
+  uploadCstPicturePath: /root/software/apache-tomcat-7.0.86/webapps/guoya-data/profilePictures/
+  uploadExamPath: /root/software/apache-tomcat-7.0.86/webapps/guoya-data/interview/exam/
+  uploadOfferPath: /root/software/apache-tomcat-7.0.86/webapps/guoya-data/interview/offer/
+  uploadMkPicPath: /root/software/apache-tomcat-7.0.86/webapps/guoya-data/mk/picture/
+  uploadStuInfoPicPath: /root/software/apache-tomcat-7.0.86/webapps/guoya-data/stuInfo/personalPicture/
+  addPathPatterns: /interview/**
+  excludePathPatterns: /login,/success,/guoya-data,/cst/**,/user/**
+
+spring:
+  profiles:
+    active: pro
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1024mb
+      max-request-size: 1024mb
+
+  ## Redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: Guoya006
+
+  datasource:
+    # 使用druid数据源 Guoya006 pro_root dev     47.98.226.232:3306
+    name: testDB
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://yansl.com:3306/mall_test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      # 初始连接数
+      initial-size: 5
+      # 最大激活数
+      max-active: 50
+      # 最大等待时间
+      max-wait: 3000
+      # 是否启用非公平锁
+      use-unfair-lock: true
+      # mysql 用 false | oracle 用 true
+      pool-prepared-statements: false
+      # 启动监听、日志、防注入的功能
+#      filters: stat,log4j,wall
+      # 验证的sql语句
+      validation-query: select 1
+      # 验证超时
+      validation-query-timeout: 3000
+      # 连接时是否开启验证
+      test-on-borrow: true
+      # 退还连接时是否开启验证
+      test-on-return: false
+      # 建议配置为true，不影响性能，并且保证安全性
+      test-while-idle: true
+      # Destroy线程会检测连接的间隔时间 || testWhileIdle的判断依据
+      time-between-eviction-runs-millis: 5000
+    monitor:
+      enabled: enabled # 配置此属性Monitor才生效
+      druid-stat-view: /druid/*
+      druid-web-stat-filter: /*
+      allow: 219.230.50.107,127.0.0.1
+      deny: 219.230.50.108
+      login-username: admin
+      login-password: 123456
+      exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+      reset-enable: false
+
+      #配置页面展示
+  mvc:
+    view:
+      prefix: /views/
+      suffix: .html
+
+#
+#    max-wait: 10000 #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制
+#    max-idle: 10 #最大空闲数，数据库连接的最大空闲时间。超过空闲时间，数据库连接将被释放。设为0表示无限制
+#    min-idle: 5  ##最小空闲连接:连接池中容许保持空闲状态的最小连接数量,低于这个数量将创建新的连接
+#    max_active: 50   ##连接池的最大数据库连接数。设为0表示无限制
+#    initial-size: 5  #初始化连接:连接池启动时创建的初始化连接数量
+#    timeBetweenEvictionRunsMillis: 60000
+#    minEvictableIdleTimeMillis: 300000
+#    validationQuery: select 'x'
+#    testWhileIdle: true
+#    testOnBorrow: false
+#    testOnReturn: false
+#    poolPreparedStatements: true
+#    maxOpenPreparedStatements: 20
+#
+#    filters: stat,wall,log4j,config
+#    connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=true
+#    monitor:
+#      enabled: enabled # 配置此属性Monitor才生效
+#      druid-stat-view: /druid/*
+#      druid-web-stat-filter: /*
+#      allow: 219.230.50.107,127.0.0.1
+#      deny: 219.230.50.108
+#      login-username: admin
+#      login-password: 123456
+#      exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+#      reset-enable: false
+
+## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.guoyasoft.entity  # 注意：对应实体类的路径
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+## swagger配置
+swagger:
+  #enabled: false
+  title: spring-boot-starter-swagger
+  description: Starter for swagger 2.x
+  version: 1.1.0.RELEASE
+  license: Apache License, Version 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfServiceUrl: https://github.com/dyc87112/spring-boot-starter-swagger
+  contact.name: didi
+  contact.url: http://blog.didispace.com
+  contact.email: dyc87112@qq.com
+  base-package: com.didispace
+
+  #ignored-parameter-types[0]: com.didispace.demo.User
+
+  global-operation-parameters[0]:
+    name: access_token
+    description: user access token
+    modelRef: string
+    parameterType: header
+    required: true
+
+  global-operation-parameters[1]:
+    name: timestamp
+    description: access timestamp
+    modelRef: int
+    parameterType: header
+    required: false
+
+  apply-default-response-messages: true
+  global-response-message:
+    get[0]:
+      code: 401
+      message: 401get
+    get[1]:
+      code: 500
+      message: 500get
+      modelRef: ERROR
+
+  ui-config.json-editor: false
+  ui-config.show-request-headers: true
+  ui-config.request-timeout: 5000
+  ui-config.submit-methods: get,delete
+
+
+
+
+---
+spring:
+  profiles: pro
+  datasource:
+    # 使用druid数据源 Guoya006 pro_root dev     47.98.226.232:3306 dev.guoyasoft.com:3306
+    name: testDB
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://yansl.com:3306/mall_test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
+    username: root
+    password: root
+
+
+---
+spring:
+  profiles: dev
+  datasource:
+    # 使用druid数据源 Guoya006 pro_root dev     47.98.226.232:3306 dev.guoyasoft.com:3306
+    name: testDB
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://yansl.com:3306/mall_test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
+    username: root
+    password: root
+
+---
+spring:
+  profiles: qa
+  datasource:
+    # 使用druid数据源 Guoya006 pro_root dev     47.98.226.232:3306 dev.guoyasoft.com:3306
+    name: testDB
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://yansl.com:3306/mall_test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
+    username: root
+    password: uAiqwVwjJ8-i
