@@ -46,4 +46,27 @@ public class ITProdSkuSvcImpl implements ITProdSkuSvc {
   public List<TProdSku> getAllSKU(int pageNum, int pageSize) {
     return  skuMapper.selectAllSku();
   }
+
+  @Override
+  public int updateBySkuCode(TProdSku tProdSku) {
+    TProdSkuExample tProdSkuExample = new TProdSkuExample();
+    // 生成 criteria
+    Criteria criteria = tProdSkuExample.createCriteria();
+    // 加条件: where sku_code = skuCode (String skuCode)
+    criteria.andSkuCodeEqualTo(tProdSku.getSkuCode());
+
+    return  skuMapper.updateByExampleSelective(tProdSku,tProdSkuExample);
+
+  }
+
+  @Override
+  public int delBySkuCode(String skuCode) {
+    TProdSkuExample tProdSkuExample = new TProdSkuExample();
+    // 生成 criteria
+    Criteria criteria = tProdSkuExample.createCriteria();
+    // 加条件: where sku_code = skuCode (String skuCode)
+    criteria.andSkuCodeEqualTo(skuCode);
+
+    return  skuMapper.deleteByExample(tProdSkuExample);
+  }
 }

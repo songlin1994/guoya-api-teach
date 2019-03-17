@@ -116,7 +116,7 @@
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{imgAddr,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.guoyasoft.model.TProdSku" >
+  <insert id="insertSelective" parameterType="com.guoyasoft.model.TProdSku" keyColumn="sku_id" keyProperty="skuId" useGeneratedKeys="true">
     insert into t_prod_sku
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="skuId != null" >

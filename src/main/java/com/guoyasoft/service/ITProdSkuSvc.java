@@ -16,4 +16,8 @@ public interface ITProdSkuSvc {
   List<TProdSku> selectBySkuName(String skuName);
 
   List<TProdSku> getAllSKU(int pageNum, int pageSize);
+
+  int updateBySkuCode(TProdSku tProdSku);
+
+  int delBySkuCode(String skuCode);
 }
