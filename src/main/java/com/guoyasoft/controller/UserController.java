@@ -55,7 +55,7 @@ public class UserController {
 
   @RequestMapping(value = "info", method = RequestMethod.GET)
   public String post(@RequestParam String token) {
-
+    System.out.println("11111");
     return "{\"code\":20000,\"data\":{\"roles\":[\"admin\"],\"name\":\"admin\",\"avatar\":\"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif\"}}";
   }
 
