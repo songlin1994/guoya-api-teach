@@ -45,7 +45,7 @@ public class UserController {
   @RequestMapping(value = "login", method = RequestMethod.POST)
   public BaseResponse post(@RequestBody LoginBean login) {
     BaseResponse baseResponse = new BaseResponse();
-    baseResponse.setCode(2000);
+    baseResponse.setCode(20000);
     baseResponse.setMsg("登陆成功");
     Token token = new Token();
     token.setToken("admin");
@@ -57,6 +57,12 @@ public class UserController {
   public String post(@RequestParam String token) {
     System.out.println("11111");
     return "{\"code\":20000,\"data\":{\"roles\":[\"admin\"],\"name\":\"admin\",\"avatar\":\"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif\"}}";
+  }
+
+  @RequestMapping(value = "logout", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+  public Object logout(){
+
+    return "{\"code\":20000,\"data\":\"success\"}";
   }
 
   @ApiOperation("注册接口")
