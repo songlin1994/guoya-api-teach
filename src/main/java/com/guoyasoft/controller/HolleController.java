@@ -35,14 +35,6 @@ public class HolleController {
     return "这是一个get----" + name;
   }
 
-  @RequestMapping(value = "post", method = RequestMethod.POST)
-  public BaseResponse post(@RequestBody LoginBean login) {
-    BaseResponse baseResponse = new BaseResponse();
-    baseResponse.setCode(2000);
-    baseResponse.setMsg("登陆成功");
-    return baseResponse;
-  }
-
   @ApiOperation(value = "请求测试")
   @RequestMapping(value = "request", method = RequestMethod.POST)
   public BaseResponse post(@RequestBody LoginBean login, HttpServletRequest request, HttpServletResponse response) {

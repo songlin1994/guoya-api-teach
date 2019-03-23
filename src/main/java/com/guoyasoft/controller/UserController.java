@@ -2,7 +2,9 @@ package com.guoyasoft.controller;
 
 
 import com.guoyasoft.bean.BaseResponse;
+import com.guoyasoft.bean.LoginBean;
 import com.guoyasoft.bean.SignUpRequest;
+import com.guoyasoft.bean.Token;
 import com.guoyasoft.mapper.TUserUserMapper;
 import com.guoyasoft.model.TUserUser;
 import com.guoyasoft.service.ITUserUserSvc;
@@ -18,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -38,6 +41,23 @@ public class UserController {
 
   @Autowired
   private ITUserUserSvc userSvc;
+
+  @RequestMapping(value = "login", method = RequestMethod.POST)
+  public BaseResponse post(@RequestBody LoginBean login) {
+    BaseResponse baseResponse = new BaseResponse();
+    baseResponse.setCode(2000);
+    baseResponse.setMsg("登陆成功");
+    Token token = new Token();
+    token.setToken("admin");
+    baseResponse.setData(token);
+    return baseResponse;
+  }
+
+  @RequestMapping(value = "info", method = RequestMethod.GET)
+  public String post(@RequestParam String token) {
+
+    return "{\"code\":20000,\"data\":{\"roles\":[\"admin\"],\"name\":\"admin\",\"avatar\":\"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif\"}}";
+  }
 
   @ApiOperation("注册接口")
   @RequestMapping(value = "signin", method = RequestMethod.POST)
