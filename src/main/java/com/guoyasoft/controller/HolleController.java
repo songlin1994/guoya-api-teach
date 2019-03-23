@@ -21,22 +21,22 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("/index")
-@Api(value = "HolleController",description = "练习")
+@Api(value = "HolleController", description = "练习")
 public class HolleController {
 
-  @RequestMapping(value = "holle",method = RequestMethod.GET)
-  public String holle(){
+  @RequestMapping(value = "holle", method = RequestMethod.GET)
+  public String holle() {
     return "Holle Word";
   }
 
-  @RequestMapping(value = "get",method = RequestMethod.GET)
-  public String get(@RequestParam String name){
+  @RequestMapping(value = "get", method = RequestMethod.GET)
+  public String get(@RequestParam String name) {
 
-    return "这是一个get----"+ name;
+    return "这是一个get----" + name;
   }
 
-  @RequestMapping(value = "post",method = RequestMethod.POST)
-  public BaseResponse post(@RequestBody LoginBean login){
+  @RequestMapping(value = "post", method = RequestMethod.POST)
+  public BaseResponse post(@RequestBody LoginBean login) {
     BaseResponse baseResponse = new BaseResponse();
     baseResponse.setCode(2000);
     baseResponse.setMsg("登陆成功");
@@ -44,10 +44,10 @@ public class HolleController {
   }
 
   @ApiOperation(value = "请求测试")
-  @RequestMapping(value = "request",method = RequestMethod.POST)
-  public BaseResponse post(@RequestBody LoginBean login , HttpServletRequest request, HttpServletResponse response){
+  @RequestMapping(value = "request", method = RequestMethod.POST)
+  public BaseResponse post(@RequestBody LoginBean login, HttpServletRequest request, HttpServletResponse response) {
     String id = request.getHeader("id");
-    response.setHeader("test","XXXX");
+    response.setHeader("test", "XXXX");
     System.out.println(id);
     BaseResponse baseResponse = new BaseResponse();
     baseResponse.setCode(2000);

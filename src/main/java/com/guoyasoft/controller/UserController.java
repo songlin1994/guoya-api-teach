@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("/user")
-@Api(value = "UserController",description = "用户接口")
+@Api(value = "UserController", description = "用户接口")
 public class UserController {
 
   private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -40,8 +40,8 @@ public class UserController {
   private ITUserUserSvc userSvc;
 
   @ApiOperation("注册接口")
-  @RequestMapping(value = "signin",method = RequestMethod.POST)
-  public BaseResponse signin (@Validated @RequestBody SignUpRequest signUpRequest, BindingResult bindingResult){
+  @RequestMapping(value = "signin", method = RequestMethod.POST)
+  public BaseResponse signin(@Validated @RequestBody SignUpRequest signUpRequest, BindingResult bindingResult) {
     //@Validated 校验 bean ,BindingResult : 校验结果的对象
     String msg = "";
     BaseResponse baseResponse = new BaseResponse();
@@ -52,15 +52,15 @@ public class UserController {
       msg = msg + fieldError.getDefaultMessage() + "；";
     }
 
-    if (msg.equals("")){
-      if (signUpRequest.getPwd().equals(signUpRequest.getRepwd())){
+    if (msg.equals("")) {
+      if (signUpRequest.getPwd().equals(signUpRequest.getRepwd())) {
         TUserUser tUserUser = new TUserUser();
         tUserUser.setIphone(signUpRequest.getPhone());
         tUserUser.setAge(signUpRequest.getAge());
         tUserUser.setPasswd(signUpRequest.getPwd());
         tUserUser.setUserName(signUpRequest.getUsername());
         List<TUserUser> tUserUsers = userSvc.selectByUserName(signUpRequest.getUsername());
-        if (tUserUsers.size()>0){
+        if (tUserUsers.size() > 0) {
           baseResponse.setCode(41000);
           baseResponse.setMsg("已有该用户名");
           return baseResponse;
